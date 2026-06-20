@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.log
+*.err.log
+portfolio-*.png
+ngrok*.log
+localtunnel*.log
+cloudflared*.log
+.DS_Store
+Thumbs.db
