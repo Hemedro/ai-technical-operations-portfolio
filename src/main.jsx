@@ -21,6 +21,8 @@ import {
 } from "lucide-react";
 import "./styles.css";
 
+const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+
 const proofStats = [
   { value: "212", label: "catalogue records organized" },
   { value: "197", label: "customer records modeled" },
@@ -223,9 +225,9 @@ function App() {
           </ul>
         </div>
         <div className="image-stack">
-          <img src="/case-study-images/catalogue-list.jpeg" alt="Catalogue list app screen" />
-          <img src="/case-study-images/catalogue-detail.jpeg" alt="Catalogue detail app screen" />
-          <img src="/case-study-images/customers-list.jpeg" alt="Customers list app screen" />
+          <img src={assetPath("case-study-images/catalogue-list.jpeg")} alt="Catalogue list app screen" />
+          <img src={assetPath("case-study-images/catalogue-detail.jpeg")} alt="Catalogue detail app screen" />
+          <img src={assetPath("case-study-images/customers-list.jpeg")} alt="Customers list app screen" />
         </div>
       </section>
 
