@@ -1,6 +1,41 @@
-# Ahmed Portfolio Website
+# Ahmed Abdullah - AI Technical Operations Portfolio
 
-Modern portfolio site for Ahmed's AI Operations / Technical Operations positioning.
+Portfolio website for Ahmed's AI Operations / Technical Operations positioning.
+
+Live site:
+
+```text
+https://hemedro.github.io/ai-technical-operations-portfolio/
+```
+
+If the link returns 404, GitHub Pages still needs to be enabled from the repository settings with Source set to GitHub Actions.
+
+## What This Portfolio Proves
+
+Ahmed works best inside messy business workflows where operations, data, people, and tools overlap. This portfolio focuses on practical proof:
+
+- Building internal systems from real workflow problems
+- Using AI/Codex to speed up reporting and error detection
+- Turning scattered operational work into structured tools
+- Connecting non-technical business needs with technical execution
+
+Positioning:
+
+**AI Operations & Technical Operations Generalist**
+
+## Featured Case Studies
+
+- Catalogue / CRM / Sales Ownership App
+- AI-Assisted Al Ameen SOA Workflow
+- Glide Procurement Workflow Module
+
+## Tech Stack
+
+- React
+- Vite
+- CSS
+- Lucide icons
+- GitHub Pages deployment
 
 ## Run Locally
 
@@ -26,17 +61,3 @@ The production files are generated in:
 ```text
 dist/
 ```
-
-## Positioning
-
-The site intentionally does not use a personal photo.
-
-It focuses on proof:
-
-- Catalogue / CRM / Sales Ownership App
-- AI-Assisted Al Ameen SOA Workflow
-- Glide Procurement Workflow Module
-
-Core identity:
-
-**AI Operations & Technical Operations Generalist**
