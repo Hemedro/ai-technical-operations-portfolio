@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import {
   ArrowUpRight,
@@ -100,6 +100,9 @@ function AmbientSystem() {
     <div className="ambient-system" aria-hidden="true">
       <div className="grid-plane"></div>
       <div className="scanline"></div>
+      <div className="scroll-meter">
+        <span></span>
+      </div>
       <div className="signal-lane lane-one">
         <span></span>
       </div>
@@ -123,7 +126,73 @@ function AmbientSystem() {
   );
 }
 
+function useScrollDynamics() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const dynamicItems = document.querySelectorAll(
+      ".stat, .workflow-card, .project-card, .case-study, .audit-row, .skill-cloud span, .contact-card",
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    dynamicItems.forEach((item, index) => {
+      item.classList.add("scroll-reveal");
+      item.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 70}ms`);
+      observer.observe(item);
+    });
+
+    let frame = 0;
+    let lastY = window.scrollY;
+    let velocity = 0;
+
+    const update = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
+      const progress = Math.min(scrollY / maxScroll, 1);
+      velocity = velocity * 0.82 + (scrollY - lastY) * 0.18;
+      lastY = scrollY;
+
+      root.style.setProperty("--scroll-progress", progress.toFixed(4));
+      root.style.setProperty("--scroll-depth", `${scrollY * -0.075}px`);
+      root.style.setProperty("--lane-shift", `${scrollY * 0.045}px`);
+      root.style.setProperty("--reverse-lane-shift", `${scrollY * -0.035}px`);
+      root.style.setProperty("--image-parallax", `${scrollY * -0.018}px`);
+      root.style.setProperty("--system-tilt", `${Math.max(Math.min(velocity * 0.04, 7), -7)}deg`);
+      root.style.setProperty("--signal-boost", Math.min(Math.abs(velocity) / 42, 1).toFixed(3));
+      frame = 0;
+    };
+
+    const requestUpdate = () => {
+      if (!frame) {
+        frame = window.requestAnimationFrame(update);
+      }
+    };
+
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      observer.disconnect();
+    };
+  }, []);
+}
+
 function App() {
+  useScrollDynamics();
+
   return (
     <main>
       <AmbientSystem />
