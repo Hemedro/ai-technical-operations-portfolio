@@ -95,9 +95,38 @@ const workflowSteps = [
   },
 ];
 
+function AmbientSystem() {
+  return (
+    <div className="ambient-system" aria-hidden="true">
+      <div className="grid-plane"></div>
+      <div className="scanline"></div>
+      <div className="signal-lane lane-one">
+        <span></span>
+      </div>
+      <div className="signal-lane lane-two">
+        <span></span>
+      </div>
+      <div className="signal-lane lane-three">
+        <span></span>
+      </div>
+      <div className="signal-node node-a"></div>
+      <div className="signal-node node-b"></div>
+      <div className="signal-node node-c"></div>
+      <div className="signal-node node-d"></div>
+      <div className="code-rain">
+        <span>workflow.map()</span>
+        <span>audit.flags</span>
+        <span>ai.review</span>
+        <span>ops.system</span>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
     <main>
+      <AmbientSystem />
       <section className="hero" id="top">
         <nav className="nav">
           <a className="brand" href="#top" aria-label="Ahmed portfolio home">
@@ -315,8 +344,8 @@ function App() {
           <p className="eyebrow">Next Environment</p>
           <h2>Best fit: AI-first teams with messy workflows worth solving.</h2>
           <p>
-            I’m interested in AI operations, technical operations, implementation, product operations, internal
-            tools, and workflow systems. I’m not looking for random busywork. I’m looking for teams that value
+            I'm interested in AI operations, technical operations, implementation, product operations, internal
+            tools, and workflow systems. I'm not looking for random busywork. I'm looking for teams that value
             building better ways to operate.
           </p>
         </div>
