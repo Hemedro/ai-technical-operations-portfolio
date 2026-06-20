@@ -19,6 +19,31 @@
   --image-parallax: 0px;
   --system-tilt: 0deg;
   --signal-boost: 0;
+  --stage-progress: 0;
+  --stage-translate: 0%;
+  --stage-kicker-y: 0px;
+  --stage-grid-x: 0px;
+  --stage-rotate-x: 2deg;
+  --stage-rotate-y: -5deg;
+  --stage-glow-x: 0px;
+  --stage-visual-y: 0px;
+  --stage-image-x: -17px;
+  --stage-image-rotate: -3deg;
+  --stage-flow-x: -14px;
+  --stage-flow-x-reverse: 14px;
+  --image-stack-y: 0px;
+  --image-one-y: 0px;
+  --image-two-y: 34px;
+  --image-three-y: 0px;
+  --system-map-y: 0px;
+  --audit-y: 0px;
+  --terminal-y: 0px;
+  --code-one-y: 0px;
+  --code-two-y: 0px;
+  --code-three-y: 0px;
+  --code-four-y: 0px;
+  --pointer-x: 50vw;
+  --pointer-y: 40vh;
 }
 
 * {
@@ -27,13 +52,12 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  overflow-x: hidden;
+  overflow-x: clip;
   background:
     linear-gradient(180deg, rgba(52, 211, 153, 0.055), transparent 430px),
     var(--bg);
@@ -49,7 +73,7 @@ a {
 
 main {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .ambient-system {
@@ -71,6 +95,14 @@ main {
     linear-gradient(115deg, transparent 0 36%, rgba(52, 211, 153, 0.05) 45%, transparent 56%),
     linear-gradient(245deg, transparent 0 42%, rgba(56, 189, 248, 0.055) 50%, transparent 62%);
   animation: fieldShift 16s linear infinite;
+}
+
+.ambient-system::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--pointer-x) var(--pointer-y), rgba(56, 189, 248, 0.14), transparent 260px);
+  opacity: 0.85;
 }
 
 .grid-plane {
@@ -128,9 +160,11 @@ main {
 .scroll-meter span {
   display: block;
   width: 100%;
-  height: calc(var(--scroll-progress) * 100%);
+  height: 100%;
   background: linear-gradient(180deg, var(--accent), var(--accent-2));
   box-shadow: 0 0 18px rgba(56, 189, 248, 0.45);
+  transform: scaleY(var(--scroll-progress));
+  transform-origin: top;
 }
 
 .signal-lane {
@@ -234,33 +268,34 @@ main {
 .code-rain span:nth-child(1) {
   top: 18%;
   right: 9%;
-  transform: translateY(calc(var(--scroll-depth) * -0.24));
+  transform: translateY(var(--code-one-y));
 }
 
 .code-rain span:nth-child(2) {
   top: 46%;
   left: 7%;
   animation-delay: -2.4s;
-  transform: translateY(calc(var(--scroll-depth) * 0.18));
+  transform: translateY(var(--code-two-y));
 }
 
 .code-rain span:nth-child(3) {
   bottom: 26%;
   right: 20%;
   animation-delay: -5.2s;
-  transform: translateY(calc(var(--scroll-depth) * -0.16));
+  transform: translateY(var(--code-three-y));
 }
 
 .code-rain span:nth-child(4) {
   bottom: 12%;
   left: 16%;
   animation-delay: -7.6s;
-  transform: translateY(calc(var(--scroll-depth) * 0.12));
+  transform: translateY(var(--code-four-y));
 }
 
 .hero,
 .section,
 .stats-band,
+.cinematic-stage,
 .case-study,
 .contact-section {
   position: relative;
@@ -416,7 +451,7 @@ h3 {
     #0b1015;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
   overflow: hidden;
-  transform: translateY(calc(var(--scroll-depth) * -0.04));
+  transform: translateY(var(--terminal-y));
 }
 
 .terminal-panel::after {
@@ -497,6 +532,239 @@ h3 {
 .stat span {
   color: var(--muted);
   font-size: 14px;
+}
+
+.cinematic-stage {
+  height: 360vh;
+  margin-top: 0;
+}
+
+.cinematic-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  align-content: center;
+  gap: 22px;
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 70px 0;
+}
+
+.cinematic-kicker {
+  justify-self: center;
+  max-width: 620px;
+  padding: 9px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(245, 247, 251, 0.9);
+  color: #111827;
+  font-size: clamp(18px, 2.6vw, 34px);
+  font-weight: 820;
+  line-height: 1.05;
+  text-align: center;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.32);
+  transform: translateY(var(--stage-kicker-y));
+}
+
+.screen-shell {
+  position: relative;
+  height: min(640px, 62vh);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(130deg, rgba(255, 255, 255, 0.07), transparent 38%),
+    #080c10;
+  overflow: hidden;
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.42),
+    0 0 0 1px rgba(52, 211, 153, 0.08);
+  transform:
+    perspective(1100px)
+    rotateX(var(--stage-rotate-x))
+    rotateY(var(--stage-rotate-y));
+  transform-origin: center;
+}
+
+.screen-shell::before {
+  content: "";
+  position: absolute;
+  inset: 42px 0 0;
+  background:
+    linear-gradient(90deg, rgba(52, 211, 153, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 70px 70px;
+  opacity: 0.35;
+  transform: translateX(var(--stage-grid-x));
+}
+
+.browser-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(10, 15, 20, 0.92);
+}
+
+.browser-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--danger);
+}
+
+.browser-bar span:nth-child(2) {
+  background: var(--warn);
+}
+
+.browser-bar span:nth-child(3) {
+  background: var(--accent);
+}
+
+.browser-bar strong {
+  margin-left: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.cinematic-track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 400%;
+  height: calc(100% - 42px);
+  transform: translateX(var(--stage-translate));
+  transition: transform 60ms linear;
+}
+
+.cinematic-panel {
+  position: relative;
+  width: 25%;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: 44px;
+  align-items: center;
+  padding: clamp(28px, 5vw, 70px);
+}
+
+.cinematic-panel::after {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.12), transparent 68%);
+  filter: blur(18px);
+  transform: translateX(var(--stage-glow-x));
+}
+
+.scene-copy,
+.scene-visual {
+  position: relative;
+  z-index: 1;
+}
+
+.scene-copy p {
+  margin: 0 0 16px;
+  color: var(--accent-2);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.scene-copy h2 {
+  max-width: 760px;
+  font-size: clamp(38px, 5vw, 76px);
+  line-height: 0.9;
+}
+
+.scene-copy span {
+  display: block;
+  max-width: 540px;
+  color: #c8d2dc;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.scene-visual {
+  height: min(450px, 44vh);
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(56, 189, 248, 0.12), transparent 38%),
+    rgba(255, 255, 255, 0.045);
+  overflow: hidden;
+  transform: translateY(var(--stage-visual-y));
+}
+
+.scene-visual img {
+  width: min(70%, 250px);
+  max-height: 390px;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.44);
+  transform:
+    translateX(var(--stage-image-x))
+    rotate(var(--stage-image-rotate));
+}
+
+.scene-visual em {
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+  color: rgba(255, 255, 255, 0.12);
+  font-size: 92px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.report-flow {
+  width: min(560px, 88%);
+  display: grid;
+  gap: 14px;
+}
+
+.report-flow div {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  border-radius: 8px;
+  background: rgba(7, 16, 19, 0.64);
+  color: #e9f7ff;
+  font-weight: 760;
+  transform: translateX(var(--stage-flow-x));
+}
+
+.report-flow div:nth-child(even) {
+  transform: translateX(var(--stage-flow-x-reverse));
+}
+
+.stage-progress {
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.stage-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+  transform: scaleX(var(--stage-progress));
+  transform-origin: left;
 }
 
 .section {
@@ -693,7 +961,7 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   align-items: end;
-  transform: translateY(calc(var(--image-parallax) * 0.4));
+  transform: translateY(var(--image-stack-y));
 }
 
 .image-stack img {
@@ -709,22 +977,22 @@ h3 {
 }
 
 .image-stack img:nth-child(2) {
-  transform: translateY(calc(34px + var(--image-parallax)));
+  transform: translateY(var(--image-two-y));
 }
 
 .image-stack img:nth-child(1) {
-  transform: translateY(calc(var(--image-parallax) * -0.35));
+  transform: translateY(var(--image-one-y));
 }
 
 .image-stack img:nth-child(3) {
-  transform: translateY(calc(var(--image-parallax) * 0.55));
+  transform: translateY(var(--image-three-y));
 }
 
 .system-map {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  transform: translateY(calc(var(--image-parallax) * -0.45));
+  transform: translateY(var(--system-map-y));
 }
 
 .node {
@@ -764,7 +1032,7 @@ h3 {
 .audit-panel {
   padding: 18px;
   background: linear-gradient(180deg, rgba(56, 189, 248, 0.08), rgba(255, 255, 255, 0.04));
-  transform: translateY(calc(var(--image-parallax) * -0.25));
+  transform: translateY(var(--audit-y));
 }
 
 .audit-row {
@@ -860,6 +1128,15 @@ h3 {
   .image-stack {
     max-width: 760px;
   }
+
+  .cinematic-panel {
+    grid-template-columns: 1fr;
+    align-content: center;
+  }
+
+  .scene-visual {
+    min-height: 360px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -917,6 +1194,63 @@ h3 {
   .terminal-body {
     font-size: 13px;
     padding: 18px;
+  }
+
+  .cinematic-stage {
+    height: auto;
+  }
+
+  .cinematic-sticky {
+    position: relative;
+    min-height: auto;
+    width: min(100% - 28px, 1180px);
+    padding: 70px 0 20px;
+  }
+
+  .cinematic-kicker {
+    justify-self: start;
+    text-align: left;
+    font-size: 20px;
+  }
+
+  .screen-shell {
+    min-height: auto;
+    transform: none;
+  }
+
+  .cinematic-track {
+    width: 100%;
+    min-height: auto;
+    display: grid;
+    transform: none;
+  }
+
+  .cinematic-panel {
+    width: 100%;
+    min-height: auto;
+    padding: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cinematic-panel:last-child {
+    border-bottom: 0;
+  }
+
+  .scene-copy h2 {
+    font-size: 40px;
+  }
+
+  .scene-copy span {
+    font-size: 16px;
+  }
+
+  .scene-visual {
+    min-height: 300px;
+    transform: none;
+  }
+
+  .stage-progress {
+    display: none;
   }
 
   .workflow-grid,

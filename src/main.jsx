@@ -95,6 +95,33 @@ const workflowSteps = [
   },
 ];
 
+const cinematicScenes = [
+  {
+    eyebrow: "Workflow OS",
+    title: "Messy inputs become a usable operating system.",
+    text: "Catalogue records, sales ownership, borrowing state, notifications, and project context move as one structured workflow.",
+    image: assetPath("case-study-images/catalogue-list.jpeg"),
+  },
+  {
+    eyebrow: "Internal Tools",
+    title: "Screens that behave like real work, not portfolio decoration.",
+    text: "The proof is not a mockup. It comes from a live Glide system used to organize physical catalogue chaos.",
+    image: assetPath("case-study-images/catalogue-detail.jpeg"),
+  },
+  {
+    eyebrow: "AI Operations",
+    title: "Codex turns reporting into a controlled review flow.",
+    text: "Read-only retrieval, Excel templates, review flags, and accounting checks become a repeatable AI-assisted process.",
+    image: null,
+  },
+  {
+    eyebrow: "Startup Fit",
+    title: "The value is understanding the system from inside.",
+    text: "I work close to operations, find the bottlenecks, model the data, then build the practical tool layer.",
+    image: assetPath("case-study-images/customers-list.jpeg"),
+  },
+];
+
 function AmbientSystem() {
   return (
     <div className="ambient-system" aria-hidden="true">
@@ -123,6 +150,51 @@ function AmbientSystem() {
         <span>ops.system</span>
       </div>
     </div>
+  );
+}
+
+function CinematicStage() {
+  return (
+    <section className="cinematic-stage" aria-label="Scroll driven portfolio demo">
+      <div className="cinematic-sticky">
+        <div className="cinematic-kicker">The new way of building internal systems with AI</div>
+        <div className="screen-shell">
+          <div className="browser-bar">
+            <span></span>
+            <span></span>
+            <span></span>
+            <strong>ahmed.ops/system-demo</strong>
+          </div>
+          <div className="cinematic-track">
+            {cinematicScenes.map((scene, index) => (
+              <article className="cinematic-panel" key={scene.title}>
+                <div className="scene-copy">
+                  <p>{scene.eyebrow}</p>
+                  <h2>{scene.title}</h2>
+                  <span>{scene.text}</span>
+                </div>
+                <div className={scene.image ? "scene-visual image" : "scene-visual abstract"}>
+                  {scene.image ? (
+                    <img src={scene.image} alt="" />
+                  ) : (
+                    <div className="report-flow">
+                      <div>ERP read-only data</div>
+                      <div>Codex review logic</div>
+                      <div>Excel SOA template</div>
+                      <div>PDF report output</div>
+                    </div>
+                  )}
+                  <em>0{index + 1}</em>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div className="stage-progress">
+          <span></span>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -156,17 +228,54 @@ function useScrollDynamics() {
       const scrollY = window.scrollY;
       const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
       const progress = Math.min(scrollY / maxScroll, 1);
+      const stage = document.querySelector(".cinematic-stage");
+      let stageProgress = 0;
+
+      if (stage) {
+        const rect = stage.getBoundingClientRect();
+        const travel = Math.max(rect.height - window.innerHeight, 1);
+        stageProgress = Math.min(Math.max(-rect.top / travel, 0), 1);
+      }
+
       velocity = velocity * 0.82 + (scrollY - lastY) * 0.18;
       lastY = scrollY;
 
       root.style.setProperty("--scroll-progress", progress.toFixed(4));
+      root.style.setProperty("--stage-progress", stageProgress.toFixed(4));
+      root.style.setProperty("--stage-translate", `${stageProgress * -75}%`);
+      root.style.setProperty("--stage-kicker-y", `${stageProgress * -16}px`);
+      root.style.setProperty("--stage-grid-x", `${stageProgress * -140}px`);
+      root.style.setProperty("--stage-rotate-x", `${2 - stageProgress * 4}deg`);
+      root.style.setProperty("--stage-rotate-y", `${-5 + stageProgress * 10}deg`);
+      root.style.setProperty("--stage-glow-x", `${stageProgress * 120}px`);
+      root.style.setProperty("--stage-visual-y", `${stageProgress * -24}px`);
+      root.style.setProperty("--stage-image-x", `${(stageProgress - 0.5) * 34}px`);
+      root.style.setProperty("--stage-image-rotate", `${-3 + stageProgress * 6}deg`);
+      root.style.setProperty("--stage-flow-x", `${(stageProgress - 0.5) * 28}px`);
+      root.style.setProperty("--stage-flow-x-reverse", `${(0.5 - stageProgress) * 28}px`);
       root.style.setProperty("--scroll-depth", `${scrollY * -0.075}px`);
       root.style.setProperty("--lane-shift", `${scrollY * 0.045}px`);
       root.style.setProperty("--reverse-lane-shift", `${scrollY * -0.035}px`);
       root.style.setProperty("--image-parallax", `${scrollY * -0.018}px`);
+      root.style.setProperty("--image-stack-y", `${scrollY * -0.0072}px`);
+      root.style.setProperty("--image-one-y", `${scrollY * 0.0063}px`);
+      root.style.setProperty("--image-two-y", `${34 + scrollY * -0.018}px`);
+      root.style.setProperty("--image-three-y", `${scrollY * -0.0099}px`);
+      root.style.setProperty("--system-map-y", `${scrollY * 0.0081}px`);
+      root.style.setProperty("--audit-y", `${scrollY * 0.0045}px`);
+      root.style.setProperty("--terminal-y", `${scrollY * 0.003}px`);
+      root.style.setProperty("--code-one-y", `${scrollY * 0.018}px`);
+      root.style.setProperty("--code-two-y", `${scrollY * -0.0135}px`);
+      root.style.setProperty("--code-three-y", `${scrollY * 0.012}px`);
+      root.style.setProperty("--code-four-y", `${scrollY * -0.009}px`);
       root.style.setProperty("--system-tilt", `${Math.max(Math.min(velocity * 0.04, 7), -7)}deg`);
       root.style.setProperty("--signal-boost", Math.min(Math.abs(velocity) / 42, 1).toFixed(3));
       frame = 0;
+    };
+
+    const updatePointer = (event) => {
+      root.style.setProperty("--pointer-x", `${event.clientX}px`);
+      root.style.setProperty("--pointer-y", `${event.clientY}px`);
     };
 
     const requestUpdate = () => {
@@ -178,10 +287,12 @@ function useScrollDynamics() {
     update();
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
+    window.addEventListener("pointermove", updatePointer, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
+      window.removeEventListener("pointermove", updatePointer);
       if (frame) {
         window.cancelAnimationFrame(frame);
       }
@@ -253,6 +364,8 @@ function App() {
           </div>
         ))}
       </section>
+
+      <CinematicStage />
 
       <section className="section">
         <div className="section-heading">
