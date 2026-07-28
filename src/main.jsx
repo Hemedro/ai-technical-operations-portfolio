@@ -48,12 +48,12 @@ const projectCards = [
     icon: BrainCircuit,
   },
   {
-    tag: "Procurement Systems",
-    title: "Glide Purchase Workflow Module",
+    tag: "AI Quality",
+    title: "AI Response Evaluation Work",
     summary:
-      "A procurement data model covering suppliers, purchase requests, request lines, purchase orders, receipts, payments, and supplier price history.",
-    metrics: ["8 procurement tables", "line-item tracking", "payment/receipt structure"],
-    icon: Workflow,
+      "Quality-focused review work across response, image, audio, map, and search tasks, using clear rubrics to distinguish correct, useful, safe, and policy-compliant outputs.",
+    metrics: ["Response quality", "Safety review", "Clear escalation notes"],
+    icon: ShieldCheck,
   },
 ];
 
@@ -506,6 +506,48 @@ function App() {
             <Sparkles size={20} />
             <span>AI-assisted checking and structuring</span>
           </div>
+        </div>
+      </section>
+
+      <section className="case-study alt">
+        <div className="audit-panel quality-panel">
+          <div className="audit-row">
+            <BrainCircuit size={20} />
+            <span>Review the output against the task and rubric</span>
+          </div>
+          <div className="audit-row">
+            <CheckCircle2 size={20} />
+            <span>Separate fluency from factual accuracy and instruction following</span>
+          </div>
+          <div className="audit-row">
+            <ShieldCheck size={20} />
+            <span>Identify safety, harmful-content, and policy concerns</span>
+          </div>
+          <div className="audit-row">
+            <FileText size={20} />
+            <span>Document ambiguous cases for consistent downstream review</span>
+          </div>
+        </div>
+        <div className="case-copy">
+          <p className="eyebrow">Case Study 04</p>
+          <h2>AI quality evaluation and data review</h2>
+          <p>
+            Through AI data projects including work with Centific, I reviewed model outputs and training data against
+            defined criteria. The work required careful judgment: checking whether an answer followed instructions,
+            was useful and coherent, handled risk appropriately, and matched the task rather than simply sounding
+            convincing.
+          </p>
+          <ul className="clean-list">
+            <li>
+              <CheckCircle2 size={18} /> Response quality, instruction-following, and harmful-content review
+            </li>
+            <li>
+              <CheckCircle2 size={18} /> Image, audio/transcript, search-rating, and map-validation tasks
+            </li>
+            <li>
+              <CheckCircle2 size={18} /> Evidence-led decisions with escalation for uncertain edge cases
+            </li>
+          </ul>
         </div>
       </section>
 

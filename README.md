@@ -28,6 +28,7 @@ Positioning:
 - Catalogue / CRM / Sales Ownership App
 - AI-Assisted Al Ameen SOA Workflow
 - Glide Procurement Workflow Module
+- AI Quality Evaluation and Data Review
 
 ## Tech Stack
 
