@@ -1,6 +1,6 @@
-# Ahmed Abdullah - AI Technical Operations Portfolio
+# Ahmed Elsaid — Applied AI Portfolio
 
-Portfolio website for Ahmed's AI Operations / Technical Operations positioning.
+Portfolio website positioning Ahmed for junior Applied AI, LLM evaluation, and AI quality roles.
 
 Live site:
 
@@ -8,27 +8,24 @@ Live site:
 https://hemedro.github.io/ai-technical-operations-portfolio/
 ```
 
-If the link returns 404, GitHub Pages still needs to be enabled from the repository settings with Source set to GitHub Actions.
-
 ## What This Portfolio Proves
 
-Ahmed works best inside messy business workflows where operations, data, people, and tools overlap. This portfolio focuses on practical proof:
+This portfolio presents practical evidence of:
 
-- Building internal systems from real workflow problems
-- Using AI/Codex to speed up reporting and error detection
-- Turning scattered operational work into structured tools
-- Connecting non-technical business needs with technical execution
+- 800+ recorded hours of AI evaluation and data-quality work
+- 3,000+ completed tasks across text, images, audio, maps, and URLs
+- Arabic-English model evaluation experience
+- A live multi-model LLM Evaluation Lab
+- Product thinking, evaluation design, testing, and deployment review
 
 Positioning:
 
-**AI Operations & Technical Operations Generalist**
+**Junior Applied AI Engineer | LLM Evaluation & AI Quality**
 
-## Featured Case Studies
+## Featured Project
 
-- Catalogue / CRM / Sales Ownership App
-- AI-Assisted Al Ameen SOA Workflow
-- Glide Procurement Workflow Module
-- AI Quality Evaluation and Data Review
+- [LLM Evaluation Lab](https://llm-evaluation-lab.onrender.com/)
+- [Source code](https://github.com/Hemedro/llm-evaluation-lab)
 
 ## Tech Stack
 
@@ -48,7 +45,7 @@ npm run dev -- --port 5173
 Open:
 
 ```text
-http://127.0.0.1:5173/
+http://127.0.0.1:5173/ai-technical-operations-portfolio/
 ```
 
 ## Build

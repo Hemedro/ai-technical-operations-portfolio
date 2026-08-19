@@ -1,592 +1,309 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import {
   ArrowUpRight,
-  Bot,
-  Boxes,
   BrainCircuit,
-  CheckCircle2,
+  BriefcaseBusiness,
+  Check,
+  Code2,
   Database,
-  FileText,
+  FileDown,
   Gauge,
+  Globe2,
   GitBranch,
-  Layers3,
   Mail,
-  Map,
-  Network,
   ShieldCheck,
   Sparkles,
+  TestTube2,
   Workflow,
-  Wrench,
 } from "lucide-react";
 import "./styles.css";
 
-const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`;
+const LINKS = {
+  lab: "https://llm-evaluation-lab.onrender.com/",
+  repo: "https://github.com/Hemedro/llm-evaluation-lab",
+  github: "https://github.com/Hemedro",
+  linkedin: "https://www.linkedin.com/in/ahmed-abdullah-tech-ops/",
+  cv: "/ai-technical-operations-portfolio/Ahmed_Elsaid_Applied_AI_CV.pdf",
+  email: "mailto:ahmedabduahmed2001@gmail.com",
+};
 
-const proofStats = [
-  { value: "212", label: "catalogue records organized" },
-  { value: "197", label: "customer records modeled" },
-  { value: "14", label: "Glide data tables inspected" },
-  { value: "65/65", label: "PDF index links verified in SOA workflow" },
-];
-
-const projectCards = [
-  {
-    tag: "Internal Tools",
-    title: "Catalogue, CRM & Sales Ownership App",
-    summary:
-      "A mobile-first Glide app that turned physical material catalogue chaos into a searchable internal system with customers, salespeople, notifications, and borrowing state.",
-    metrics: ["212 catalogue records", "197 customers", "10+ operational screens"],
-    icon: Boxes,
-  },
-  {
-    tag: "AI Operations",
-    title: "AI-Assisted Worker SOA Workflow",
-    summary:
-      "A controlled reporting workflow around Al Ameen ERP for salary reconciliation, previous-year balance checks, advance deductions, review flags, and PDF report generation.",
-    metrics: ["Read-only reporting rule", "Excel/PDF outputs", "review checkpoints"],
-    icon: BrainCircuit,
-  },
-  {
-    tag: "AI Quality",
-    title: "AI Response Evaluation Work",
-    summary:
-      "Quality-focused review work across response, image, audio, map, and search tasks, using clear rubrics to distinguish correct, useful, safe, and policy-compliant outputs.",
-    metrics: ["Response quality", "Safety review", "Clear escalation notes"],
-    icon: ShieldCheck,
-  },
-];
-
-const skills = [
-  "AI evaluation",
-  "LLM response review",
-  "Internal tools",
-  "Glide Apps",
-  "Workflow systems",
-  "Excel reporting",
-  "Codex workflows",
-  "Python",
-  "SQL-aware reporting",
-  "Technical teaching",
-  "Arabic/English",
-  "Operations mapping",
-];
-
-const workflowSteps = [
-  {
-    icon: Map,
-    title: "Map the messy workflow",
-    text: "Find who owns the work, where data lives, what people repeat manually, and where the process breaks.",
-  },
-  {
-    icon: Database,
-    title: "Model the system",
-    text: "Turn scattered records into tables, relationships, statuses, line items, permissions, and review checkpoints.",
-  },
-  {
-    icon: Bot,
-    title: "Use AI where it helps",
-    text: "Apply Codex and AI tools to structure reporting, catch edge cases, compare records, and speed up review.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Keep control and auditability",
-    text: "Read-only rules, review flags, private-data handling, and explicit uncertainty instead of hidden assumptions.",
-  },
-];
-
-const cinematicScenes = [
-  {
-    eyebrow: "Workflow OS",
-    title: "Messy inputs become a usable operating system.",
-    text: "Catalogue records, sales ownership, borrowing state, notifications, and project context move as one structured workflow.",
-    image: assetPath("case-study-images/catalogue-list.jpeg"),
-  },
-  {
-    eyebrow: "Internal Tools",
-    title: "Screens that behave like real work, not portfolio decoration.",
-    text: "The proof is not a mockup. It comes from a live Glide system used to organize physical catalogue chaos.",
-    image: assetPath("case-study-images/catalogue-detail.jpeg"),
-  },
-  {
-    eyebrow: "AI Operations",
-    title: "Codex turns reporting into a controlled review flow.",
-    text: "Read-only retrieval, Excel templates, review flags, and accounting checks become a repeatable AI-assisted process.",
-    image: null,
-  },
-  {
-    eyebrow: "Startup Fit",
-    title: "The value is understanding the system from inside.",
-    text: "I work close to operations, find the bottlenecks, model the data, then build the practical tool layer.",
-    image: assetPath("case-study-images/customers-list.jpeg"),
-  },
-];
-
-function AmbientSystem() {
+function EvalConsole() {
   return (
-    <div className="ambient-system" aria-hidden="true">
-      <div className="grid-plane"></div>
-      <div className="scanline"></div>
-      <div className="scroll-meter">
-        <span></span>
+    <div className="eval-console" aria-label="Example model evaluation dashboard">
+      <div className="console-topbar">
+        <div className="window-dots" aria-hidden="true"><i /><i /><i /></div>
+        <span>evaluation.run / bilingual-safety</span>
+        <span className="live-indicator"><i /> live</span>
       </div>
-      <div className="signal-lane lane-one">
-        <span></span>
+      <div className="prompt-card">
+        <span className="mini-label">PROMPT / AR + EN</span>
+        <p>Compare model responses for instruction following, safety and Arabic localization.</p>
       </div>
-      <div className="signal-lane lane-two">
-        <span></span>
+      <div className="score-list">
+        {[
+          ["Model A", "92", "Instruction fit", "excellent"],
+          ["Model B", "84", "Localized well", "good"],
+          ["Model C", "67", "Safety concern", "review"],
+        ].map(([name, score, note, tone]) => (
+          <div className="score-row" key={name}>
+            <div className="model-line"><b>{name}</b><span className={`status ${tone}`}>{note}</span></div>
+            <div className="bar-track"><i style={{ "--score": `${score}%` }} /></div>
+            <strong>{score}</strong>
+          </div>
+        ))}
       </div>
-      <div className="signal-lane lane-three">
-        <span></span>
-      </div>
-      <div className="signal-node node-a"></div>
-      <div className="signal-node node-b"></div>
-      <div className="signal-node node-c"></div>
-      <div className="signal-node node-d"></div>
-      <div className="code-rain">
-        <span>workflow.map()</span>
-        <span>audit.flags</span>
-        <span>ai.review</span>
-        <span>ops.system</span>
+      <div className="console-foot">
+        <span><Check size={14} /> rubric complete</span>
+        <span>human review ready</span>
       </div>
     </div>
   );
 }
 
-function CinematicStage() {
+function SectionHeading({ kicker, title, text }) {
   return (
-    <section className="cinematic-stage" aria-label="Scroll driven portfolio demo">
-      <div className="cinematic-sticky">
-        <div className="cinematic-kicker">The new way of building internal systems with AI</div>
-        <div className="screen-shell">
-          <div className="browser-bar">
-            <span></span>
-            <span></span>
-            <span></span>
-            <strong>ahmed.ops/system-demo</strong>
+    <div className="section-heading">
+      <p className="section-kicker">{kicker}</p>
+      <h2>{title}</h2>
+      {text && <p>{text}</p>}
+    </div>
+  );
+}
+
+function FeaturedProject() {
+  return (
+    <section className="section shell" id="work">
+      <SectionHeading
+        kicker="01 / FEATURED BUILD"
+        title="One prompt. Multiple models. Evidence, not vibes."
+        text="A bilingual workspace for comparing LLM responses with automatic scoring and structured human review."
+      />
+
+      <article className="featured-project">
+        <div className="project-copy">
+          <div className="project-meta"><span>LIVE PRODUCT</span><b>2026</b></div>
+          <h3>LLM Evaluation Lab</h3>
+          <p>
+            Create Arabic or English evaluation datasets, run the same prompt across multiple OpenRouter models, score responses, review failure modes, and export the evidence.
+          </p>
+          <div className="feature-list">
+            <span><TestTube2 size={17} /> Multi-model experiments</span>
+            <span><Gauge size={17} /> Automatic + human scoring</span>
+            <span><ShieldCheck size={17} /> Safety and quality rubrics</span>
+            <span><Globe2 size={17} /> Arabic-English benchmarks</span>
           </div>
-          <div className="cinematic-track">
-            {cinematicScenes.map((scene, index) => (
-              <article className="cinematic-panel" key={scene.title}>
-                <div className="scene-copy">
-                  <p>{scene.eyebrow}</p>
-                  <h2>{scene.title}</h2>
-                  <span>{scene.text}</span>
-                </div>
-                <div className={scene.image ? "scene-visual image" : "scene-visual abstract"}>
-                  {scene.image ? (
-                    <img src={scene.image} alt="" />
-                  ) : (
-                    <div className="report-flow">
-                      <div>ERP read-only data</div>
-                      <div>Codex review logic</div>
-                      <div>Excel SOA template</div>
-                      <div>PDF report output</div>
-                    </div>
-                  )}
-                  <em>0{index + 1}</em>
-                </div>
-              </article>
-            ))}
+          <div className="stack-row" aria-label="Project technology stack">
+            {['Python', 'FastAPI', 'React', 'TypeScript', 'SQLite', 'OpenRouter', 'Docker'].map((item) => <span key={item}>{item}</span>)}
           </div>
+          <div className="project-actions">
+            <a className="button primary" href={LINKS.lab} target="_blank" rel="noreferrer">Try live app <ArrowUpRight size={17} /></a>
+            <a className="button secondary" href={LINKS.repo} target="_blank" rel="noreferrer"><GitBranch size={17} /> View source</a>
+          </div>
+          <p className="disclosure"><Sparkles size={15} /> Built with substantial AI coding assistance; I owned the product direction, evaluation logic, testing, debugging and deployment review.</p>
         </div>
-        <div className="stage-progress">
-          <span></span>
+
+        <div className="product-window">
+          <div className="browser-bar"><i /><i /><i /><span>llm-evaluation-lab.onrender.com</span></div>
+          <img src="/ai-technical-operations-portfolio/llm-evaluation-lab-preview.png" alt="LLM Evaluation Lab overview dashboard" loading="lazy" />
+          <div className="window-callout callout-one"><b>Human review</b><span>rubric-driven</span></div>
+          <div className="window-callout callout-two"><b>AR + EN</b><span>benchmark cases</span></div>
+        </div>
+      </article>
+    </section>
+  );
+}
+
+function EvaluationExperience() {
+  const tasks = ['Prompt creation', 'Response ranking', 'Instruction following', 'Safety review', 'Localization', 'Image review', 'Voice + transcription', 'Maps + URLs'];
+  return (
+    <section className="section shell" id="experience">
+      <SectionHeading
+        kicker="02 / EVALUATION EXPERIENCE"
+        title="Human judgment is part of the system."
+        text="Since June 2025, I have worked across Arabic and English AI-quality projects where consistency, evidence and careful guideline reading matter."
+      />
+      <div className="bento-grid">
+        <article className="bento-card bento-large">
+          <div className="card-icon"><BrainCircuit size={22} /></div>
+          <span className="card-label">QUALITY SURFACE</span>
+          <h3>From fluent answers to reliable answers.</h3>
+          <p>I review whether outputs are correct, relevant, safe, localized and actually follow the instruction—not whether they merely sound convincing.</p>
+          <div className="task-cloud">{tasks.map((task) => <span key={task}><Check size={13} />{task}</span>)}</div>
+        </article>
+
+        <article className="bento-card metric-card">
+          <span className="card-label">RECORDED WORK</span>
+          <strong>800+</strong>
+          <p>hours across project-based and task-based AI engagements.</p>
+          <div className="mini-progress"><i /></div>
+        </article>
+
+        <article className="bento-card language-card">
+          <div className="card-icon"><Globe2 size={22} /></div>
+          <span className="card-label">BILINGUAL EDGE</span>
+          <div className="language-pair"><b>عربي</b><i /><b>EN</b></div>
+          <p>Native Arabic judgment with professional English evaluation and localization experience.</p>
+        </article>
+
+        <article className="bento-card code-card">
+          <div className="card-icon"><Code2 size={22} /></div>
+          <span className="card-label">HOW I BUILD</span>
+          <h3>AI-assisted, human-reviewed.</h3>
+          <p>I specify behavior, inspect generated code, test the result, trace failures, improve the prompt or implementation, and document what changed.</p>
+          <code>build → test → inspect → improve</code>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function CareerTimeline() {
+  const roles = [
+    {
+      date: 'JUN 2025 — PRESENT',
+      role: 'Freelance AI Data & LLM Evaluation Specialist',
+      org: 'OneForma / Centific, CrowdGen, Upwork, Clickworker',
+      copy: '3,000+ Arabic and English quality tasks across response, image, voice, transcription, maps, URL and data-collection work.',
+      tags: ['LLM evaluation', 'AI quality', 'Arabic / English'],
+    },
+    {
+      date: 'APR 2025 — AUG 2026',
+      role: 'IT, Document Control & Marketing Assistant',
+      org: 'Al Saifi Decoration — Sharjah, UAE',
+      copy: 'Supported daily systems and records, produced the company’s visual marketing, and built practical web and catalogue-tracking workflows.',
+      tags: ['Internal tools', 'Website', 'Digital content'],
+    },
+    {
+      date: 'AUG 2023 — NOV 2024',
+      role: 'Programming Instructor',
+      org: '3C Schools — Online',
+      copy: 'Taught Python, web development and Unity/C# through hands-on projects for learners ages 7–18.',
+      tags: ['Python', 'Unity / C#', 'Technical teaching'],
+    },
+  ];
+  return (
+    <section className="section shell career-section">
+      <SectionHeading kicker="03 / CAREER SIGNAL" title="Different environments. One pattern: learn fast and make the work clearer." />
+      <div className="timeline">
+        {roles.map((item, index) => (
+          <article className="timeline-row" key={item.role}>
+            <div className="timeline-index">0{index + 1}</div>
+            <div className="timeline-date">{item.date}</div>
+            <div className="timeline-copy">
+              <h3>{item.role}</h3>
+              <b>{item.org}</b>
+              <p>{item.copy}</p>
+              <div>{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function WorkMethod() {
+  const steps = [
+    [<Workflow size={20} />, 'Frame', 'Turn a rough need into clear inputs, outputs and constraints.'],
+    [<Database size={20} />, 'Structure', 'Define the dataset, rubric, schema and review checkpoints.'],
+    [<TestTube2 size={20} />, 'Evaluate', 'Test edge cases, compare results and document failures.'],
+    [<Code2 size={20} />, 'Improve', 'Iterate on the prompt, workflow or code until the behavior is useful.'],
+  ];
+  return (
+    <section className="method-section">
+      <div className="shell">
+        <SectionHeading kicker="04 / WORKING METHOD" title="A simple loop for complicated AI behavior." />
+        <div className="method-grid">
+          {steps.map(([icon, title, copy], index) => (
+            <article key={title}><span>0{index + 1}</span>{icon}<h3>{title}</h3><p>{copy}</p></article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function useScrollDynamics() {
-  useEffect(() => {
-    const root = document.documentElement;
-    const dynamicItems = document.querySelectorAll(
-      ".stat, .workflow-card, .project-card, .case-study, .audit-row, .skill-cloud span, .contact-card",
-    );
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.target.classList.toggle("is-visible", entry.isIntersecting);
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
-    );
-
-    dynamicItems.forEach((item, index) => {
-      item.classList.add("scroll-reveal");
-      item.style.setProperty("--reveal-delay", `${Math.min(index % 6, 5) * 70}ms`);
-      observer.observe(item);
-    });
-
-    let frame = 0;
-    let lastY = window.scrollY;
-    let velocity = 0;
-
-    const update = () => {
-      const scrollY = window.scrollY;
-      const maxScroll = Math.max(document.body.scrollHeight - window.innerHeight, 1);
-      const progress = Math.min(scrollY / maxScroll, 1);
-      const stage = document.querySelector(".cinematic-stage");
-      let stageProgress = 0;
-
-      if (stage) {
-        const rect = stage.getBoundingClientRect();
-        const travel = Math.max(rect.height - window.innerHeight, 1);
-        stageProgress = Math.min(Math.max(-rect.top / travel, 0), 1);
-      }
-
-      velocity = velocity * 0.82 + (scrollY - lastY) * 0.18;
-      lastY = scrollY;
-
-      root.style.setProperty("--scroll-progress", progress.toFixed(4));
-      root.style.setProperty("--stage-progress", stageProgress.toFixed(4));
-      root.style.setProperty("--stage-translate", `${stageProgress * -75}%`);
-      root.style.setProperty("--stage-kicker-y", `${stageProgress * -16}px`);
-      root.style.setProperty("--stage-grid-x", `${stageProgress * -140}px`);
-      root.style.setProperty("--stage-rotate-x", `${2 - stageProgress * 4}deg`);
-      root.style.setProperty("--stage-rotate-y", `${-5 + stageProgress * 10}deg`);
-      root.style.setProperty("--stage-glow-x", `${stageProgress * 120}px`);
-      root.style.setProperty("--stage-visual-y", `${stageProgress * -24}px`);
-      root.style.setProperty("--stage-image-x", `${(stageProgress - 0.5) * 34}px`);
-      root.style.setProperty("--stage-image-rotate", `${-3 + stageProgress * 6}deg`);
-      root.style.setProperty("--stage-flow-x", `${(stageProgress - 0.5) * 28}px`);
-      root.style.setProperty("--stage-flow-x-reverse", `${(0.5 - stageProgress) * 28}px`);
-      root.style.setProperty("--scroll-depth", `${scrollY * -0.075}px`);
-      root.style.setProperty("--lane-shift", `${scrollY * 0.045}px`);
-      root.style.setProperty("--reverse-lane-shift", `${scrollY * -0.035}px`);
-      root.style.setProperty("--image-parallax", `${scrollY * -0.018}px`);
-      root.style.setProperty("--image-stack-y", `${scrollY * -0.0072}px`);
-      root.style.setProperty("--image-one-y", `${scrollY * 0.0063}px`);
-      root.style.setProperty("--image-two-y", `${34 + scrollY * -0.018}px`);
-      root.style.setProperty("--image-three-y", `${scrollY * -0.0099}px`);
-      root.style.setProperty("--system-map-y", `${scrollY * 0.0081}px`);
-      root.style.setProperty("--audit-y", `${scrollY * 0.0045}px`);
-      root.style.setProperty("--terminal-y", `${scrollY * 0.003}px`);
-      root.style.setProperty("--code-one-y", `${scrollY * 0.018}px`);
-      root.style.setProperty("--code-two-y", `${scrollY * -0.0135}px`);
-      root.style.setProperty("--code-three-y", `${scrollY * 0.012}px`);
-      root.style.setProperty("--code-four-y", `${scrollY * -0.009}px`);
-      root.style.setProperty("--system-tilt", `${Math.max(Math.min(velocity * 0.04, 7), -7)}deg`);
-      root.style.setProperty("--signal-boost", Math.min(Math.abs(velocity) / 42, 1).toFixed(3));
-      frame = 0;
-    };
-
-    const updatePointer = (event) => {
-      root.style.setProperty("--pointer-x", `${event.clientX}px`);
-      root.style.setProperty("--pointer-y", `${event.clientY}px`);
-    };
-
-    const requestUpdate = () => {
-      if (!frame) {
-        frame = window.requestAnimationFrame(update);
-      }
-    };
-
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
-    window.addEventListener("pointermove", updatePointer, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-      window.removeEventListener("pointermove", updatePointer);
-      if (frame) {
-        window.cancelAnimationFrame(frame);
-      }
-      observer.disconnect();
-    };
-  }, []);
+function Contact() {
+  return (
+    <section className="contact shell" id="contact">
+      <div>
+        <p className="section-kicker">05 / NEXT TEAM</p>
+        <h2>Let’s build something useful—and learn fast doing it.</h2>
+        <p>I’m looking for junior Applied AI, AI Product Engineering, LLM Evaluation or AI Quality opportunities with technology-first teams.</p>
+      </div>
+      <div className="contact-actions">
+        <a className="contact-primary" href={LINKS.email}><Mail size={19} /> Email Ahmed <ArrowUpRight size={18} /></a>
+        <a href={LINKS.linkedin} target="_blank" rel="noreferrer"><BriefcaseBusiness size={18} /> LinkedIn</a>
+        <a href={LINKS.github} target="_blank" rel="noreferrer"><GitBranch size={18} /> GitHub</a>
+        <a href={LINKS.cv} download><FileDown size={18} /> Download CV</a>
+      </div>
+    </section>
+  );
 }
 
 function App() {
-  useScrollDynamics();
-
   return (
-    <main>
-      <AmbientSystem />
-      <section className="hero" id="top">
-        <nav className="nav">
-          <a className="brand" href="#top" aria-label="Ahmed portfolio home">
-            <span className="brand-mark">AA</span>
-            <span>Ahmed Abdullah</span>
-          </a>
-          <div className="nav-links">
-            <a href="#proof">Proof</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-          </div>
+    <main id="top">
+      <div className="ambient ambient-one" aria-hidden="true" />
+      <div className="ambient ambient-two" aria-hidden="true" />
+
+      <header className="nav shell">
+        <a className="brand" href="#top" aria-label="Ahmed Elsaid portfolio home">
+          <span>AE</span>
+          <b>Ahmed Elsaid</b>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="#work">Work</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
         </nav>
+        <a className="nav-linkedin" href={LINKS.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+          <BriefcaseBusiness size={17} />
+        </a>
+      </header>
 
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">AI Operations / Technical Operations / Internal Tools</p>
-            <h1>I turn messy business workflows into practical systems.</h1>
-            <p className="hero-text">
-              I work best inside real operations: understanding how people actually work, organizing the data,
-              using AI where it helps, and building internal tools that make execution clearer.
-            </p>
-            <div className="hero-actions">
-              <a className="button primary" href="#projects">
-                See proof <ArrowUpRight size={18} />
-              </a>
-              <a className="button secondary" href="mailto:ahmedabduahmed2001@gmail.com">
-                Contact <Mail size={18} />
-              </a>
-            </div>
-          </div>
-
-          <div className="terminal-panel" aria-label="positioning panel">
-            <div className="terminal-top">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <div className="terminal-body">
-              <p className="prompt">$ identity</p>
-              <p>Technical operations generalist with AI evaluation and internal tool proof.</p>
-              <p className="prompt">$ operating_pattern</p>
-              <p>messy workflow -&gt; data model -&gt; AI/tool workflow -&gt; usable system</p>
-              <p className="prompt">$ looking_for</p>
-              <p>AI-first teams, startup ops, implementation, product ops, workflow systems.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="stats-band" id="proof">
-        {proofStats.map((item) => (
-          <div className="stat" key={item.label}>
-            <strong>{item.value}</strong>
-            <span>{item.label}</span>
-          </div>
-        ))}
-      </section>
-
-      <CinematicStage />
-
-      <section className="section">
-        <div className="section-heading">
-          <p className="eyebrow">How I Create Leverage</p>
-          <h2>Not random tasks. A repeatable operating pattern.</h2>
-        </div>
-        <div className="workflow-grid">
-          {workflowSteps.map((step) => {
-            const Icon = step.icon;
-            return (
-              <article className="workflow-card" key={step.title}>
-                <Icon size={24} />
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="section projects" id="projects">
-        <div className="section-heading wide">
-          <p className="eyebrow">Selected Proof</p>
-          <h2>Work that shows how I think, not just what tools I used.</h2>
-        </div>
-
-        <div className="project-grid">
-          {projectCards.map((project) => {
-            const Icon = project.icon;
-            return (
-              <article className="project-card" key={project.title}>
-                <div className="project-icon">
-                  <Icon size={25} />
-                </div>
-                <p className="project-tag">{project.tag}</p>
-                <h3>{project.title}</h3>
-                <p>{project.summary}</p>
-                <div className="metric-row">
-                  {project.metrics.map((metric) => (
-                    <span key={metric}>{metric}</span>
-                  ))}
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="case-study">
-        <div className="case-copy">
-          <p className="eyebrow">Case Study 01</p>
-          <h2>Catalogue / CRM / sales ownership app</h2>
-          <p>
-            AL SAIFI had physical material catalogues that were difficult to find, track, or connect to sales
-            work. I built a Glide app that organized catalogue images, supplier, material type, shelf location,
-            borrow state, customers, salespeople, and notifications.
+      <section className="hero shell">
+        <div className="hero-copy">
+          <div className="availability"><i /><span>Open to Applied AI roles</span><b>UAE / Worldwide</b></div>
+          <p className="eyebrow"><Sparkles size={15} /> JUNIOR APPLIED AI ENGINEER</p>
+          <h1>I evaluate AI systems. <em>Then build better ones.</em></h1>
+          <p className="hero-lead">
+            Software Engineering graduate with bilingual LLM evaluation experience and a live multi-model evaluation product. I turn rubrics, failure modes and human judgment into useful AI workflows.
           </p>
-          <ul className="clean-list">
-            <li>
-              <CheckCircle2 size={18} /> Visual catalogue library with shelf and holder tracking
-            </li>
-            <li>
-              <CheckCircle2 size={18} /> CRM-style customer records with sales ownership
-            </li>
-            <li>
-              <CheckCircle2 size={18} /> Notifications table for activity/audit visibility
-            </li>
-          </ul>
+          <div className="hero-actions">
+            <a className="button primary" href={LINKS.lab} target="_blank" rel="noreferrer">Open LLM Lab <ArrowUpRight size={17} /></a>
+            <a className="button secondary" href={LINKS.github} target="_blank" rel="noreferrer"><GitBranch size={17} /> GitHub</a>
+            <a className="text-action" href={LINKS.cv} download><FileDown size={17} /> Download CV</a>
+          </div>
         </div>
-        <div className="image-stack">
-          <img src={assetPath("case-study-images/catalogue-list.jpeg")} alt="Catalogue list app screen" />
-          <img src={assetPath("case-study-images/catalogue-detail.jpeg")} alt="Catalogue detail app screen" />
-          <img src={assetPath("case-study-images/customers-list.jpeg")} alt="Customers list app screen" />
+        <EvalConsole />
+      </section>
+
+      <section className="proof-band" aria-label="Career proof">
+        <div className="shell proof-grid">
+          <div><strong>800+</strong><span>recorded AI work hours</span></div>
+          <div><strong>3,000+</strong><span>quality tasks completed</span></div>
+          <div><strong>AR / EN</strong><span>bilingual evaluation</span></div>
+          <div><strong>LIVE</strong><span>full-stack AI product</span></div>
         </div>
       </section>
 
-      <section className="case-study alt">
-        <div className="system-map">
-          <div className="node core">
-            <Network size={22} />
-            Procurement Module
-          </div>
-          <div className="node">Suppliers</div>
-          <div className="node">Purchase Requests</div>
-          <div className="node">Request Lines</div>
-          <div className="node">Purchase Orders</div>
-          <div className="node">Order Lines</div>
-          <div className="node">Receipts</div>
-          <div className="node">Payments</div>
-          <div className="node">Price History</div>
-        </div>
-        <div className="case-copy">
-          <p className="eyebrow">Case Study 02</p>
-          <h2>Procurement workflow architecture</h2>
-          <p>
-            The app grew into a purchase workflow structure with suppliers, purchase requests, request lines,
-            purchase orders, order lines, receipts, payments, and supplier price history. This shows line-item
-            thinking, not just form-building.
-          </p>
-          <div className="mini-cards">
-            <span>
-              <Layers3 size={18} /> Header + line item model
-            </span>
-            <span>
-              <Gauge size={18} /> Quantity and balance tracking
-            </span>
-            <span>
-              <GitBranch size={18} /> Request-to-payment flow
-            </span>
-          </div>
-        </div>
-      </section>
+      <FeaturedProject />
+      <EvaluationExperience />
+      <CareerTimeline />
+      <WorkMethod />
+      <Contact />
 
-      <section className="case-study">
-        <div className="case-copy">
-          <p className="eyebrow">Case Study 03</p>
-          <h2>AI-assisted Al Ameen SOA workflow</h2>
-          <p>
-            I used AI-assisted workflows around Al Ameen ERP reporting to help prepare worker salary SOA reports,
-            reconcile salary and advance balances, check previous-year payments, flag accounting anomalies, and
-            produce structured Excel/PDF outputs.
-          </p>
-        </div>
-        <div className="audit-panel">
-          <div className="audit-row">
-            <FileText size={20} />
-            <span>Excel SOA template generation</span>
-          </div>
-          <div className="audit-row">
-            <ShieldCheck size={20} />
-            <span>Read-only accounting data rule</span>
-          </div>
-          <div className="audit-row">
-            <Wrench size={20} />
-            <span>Review flags for unclear cases</span>
-          </div>
-          <div className="audit-row">
-            <Sparkles size={20} />
-            <span>AI-assisted checking and structuring</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="case-study alt">
-        <div className="audit-panel quality-panel">
-          <div className="audit-row">
-            <BrainCircuit size={20} />
-            <span>Review the output against the task and rubric</span>
-          </div>
-          <div className="audit-row">
-            <CheckCircle2 size={20} />
-            <span>Separate fluency from factual accuracy and instruction following</span>
-          </div>
-          <div className="audit-row">
-            <ShieldCheck size={20} />
-            <span>Identify safety, harmful-content, and policy concerns</span>
-          </div>
-          <div className="audit-row">
-            <FileText size={20} />
-            <span>Document ambiguous cases for consistent downstream review</span>
-          </div>
-        </div>
-        <div className="case-copy">
-          <p className="eyebrow">Case Study 04</p>
-          <h2>AI quality evaluation and data review</h2>
-          <p>
-            Through AI data projects including work with Centific, I reviewed model outputs and training data against
-            defined criteria. The work required careful judgment: checking whether an answer followed instructions,
-            was useful and coherent, handled risk appropriately, and matched the task rather than simply sounding
-            convincing.
-          </p>
-          <ul className="clean-list">
-            <li>
-              <CheckCircle2 size={18} /> Response quality, instruction-following, and harmful-content review
-            </li>
-            <li>
-              <CheckCircle2 size={18} /> Image, audio/transcript, search-rating, and map-validation tasks
-            </li>
-            <li>
-              <CheckCircle2 size={18} /> Evidence-led decisions with escalation for uncertain edge cases
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="section skills-section">
-        <div className="section-heading">
-          <p className="eyebrow">Stack / Skill Surface</p>
-          <h2>Useful across product, operations, and AI workflows.</h2>
-        </div>
-        <div className="skill-cloud">
-          {skills.map((skill) => (
-            <span key={skill}>{skill}</span>
-          ))}
-        </div>
-      </section>
-
-      <section className="contact-section" id="contact">
-        <div>
-          <p className="eyebrow">Next Environment</p>
-          <h2>Best fit: AI-first teams with messy workflows worth solving.</h2>
-          <p>
-            I'm interested in AI operations, technical operations, implementation, product operations, internal
-            tools, and workflow systems. I'm not looking for random busywork. I'm looking for teams that value
-            building better ways to operate.
-          </p>
-        </div>
-        <div className="contact-card">
-          <a href="mailto:ahmedabduahmed2001@gmail.com">
-            ahmedabduahmed2001@gmail.com <ArrowUpRight size={18} />
-          </a>
-          <a href="https://github.com/Hemedro" target="_blank" rel="noreferrer">
-            github.com/Hemedro <ArrowUpRight size={18} />
-          </a>
-          <a href="https://www.linkedin.com/in/ahmed-abdullah-data-analyst/" target="_blank" rel="noreferrer">
-            LinkedIn <ArrowUpRight size={18} />
-          </a>
-        </div>
-      </section>
+      <footer className="footer shell">
+        <div><span>AE</span><b>Ahmed Elsaid</b></div>
+        <p>Applied AI Engineering · LLM Evaluation · Arabic-English AI Systems</p>
+        <a href="#top">Back to top ↑</a>
+      </footer>
     </main>
   );
 }
 
-createRoot(document.getElementById("root")).render(<App />);
+createRoot(document.getElementById("root")).render(
+  <React.StrictMode><App /></React.StrictMode>,
+);
